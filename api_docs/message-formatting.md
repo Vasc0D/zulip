@@ -33,7 +33,7 @@ Sample HTML formats are as follows:
 <!-- Syntax: #**announce** -->
 <a class="stream" data-stream-id="9"
   href="/#narrow/channel/9-announce">
- #announce
+ #announc
 </a>
 
 <!-- Syntax: #**announce>Zulip updates** -->
