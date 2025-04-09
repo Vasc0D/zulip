@@ -44,6 +44,9 @@ import {user_settings} from "./user_settings.ts";
 import * as util from "./util.ts";
 import * as peer_data from "./peer_data.ts";
 
+import * as topic_list_data from "./topic_list_data.ts";
+
+
 // In this module, we manage stream popovers
 // that pop up from the left sidebar.
 let stream_widget_value: number | undefined;
@@ -104,6 +107,17 @@ function build_stream_popover(opts: {elt: HTMLElement; stream_id: number}): void
     }
 
     const stream_hash = hash_util.by_stream_url(stream_id);
+    // Obtén la información de topics del stream; en este caso, para la vista no "zoomed"
+    // y sin un término de búsqueda (""), lo que te dará los topics recientes.
+    const topic_info = topic_list_data.get_list_info(stream_id, false, "");
+
+    // La cantidad total de topics es:
+    const topic_count = topic_info.num_possible_topics;
+
+    // Calcula cuántos topics están seguidos (suponiendo que en topic_list_data.ts
+    // cada topic ya tiene la propiedad "is_followed"):
+    const followed_topic_count = topic_info.items.filter((topic) => topic.is_followed).length;
+
     const show_go_to_channel_feed =
         user_settings.web_channel_default_view !==
         web_channel_default_view_values.channel_feed.code;
@@ -119,6 +133,8 @@ function build_stream_popover(opts: {elt: HTMLElement; stream_id: number}): void
         has_unread_messages,
         show_go_to_channel_feed,
         subscriber_count,
+        topic_count,
+        followed_topic_count,
     });
 
     popover_menus.toggle_popover_menu(elt, {
