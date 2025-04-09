@@ -1,3 +1,4 @@
+
 <div class="popover-menu no-auto-hide-left-sidebar-overlay" id="stream-actions-menu-popover" data-simplebar data-simplebar-tab-index="-1">
     <ul role="menu" class="popover-menu-list" data-stream-id="{{ stream.stream_id }}" data-name="{{ stream.name }}">
         <li role="none" class="popover-stream-header text-item popover-menu-list-item">
@@ -6,7 +7,10 @@
                   invite_only=stream.invite_only
                   is_web_public=stream.is_web_public }}
             </span>
-            <span class="popover-stream-name">{{stream.name}}</span>
+            <span class="popover-stream-name">{{stream.name}} {{subscriber_count}}</span>
+            {{!-- <div class="topic-stats">
+                {{total_topics}} topics ({{followed_topics}} followed)
+            </div> --}}
         </li>
         <li role="separator" class="popover-menu-separator"></li>
         {{#if has_unread_messages}}

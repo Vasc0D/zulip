@@ -42,6 +42,7 @@ import * as unread from "./unread.ts";
 import * as unread_ops from "./unread_ops.ts";
 import {user_settings} from "./user_settings.ts";
 import * as util from "./util.ts";
+import * as peer_data from "./peer_data.ts";
 
 // In this module, we manage stream popovers
 // that pop up from the left sidebar.
@@ -109,6 +110,7 @@ function build_stream_popover(opts: {elt: HTMLElement; stream_id: number}): void
     const stream_unread = unread.unread_count_info_for_stream(stream_id);
     const stream_unread_count = stream_unread.unmuted_count + stream_unread.muted_count;
     const has_unread_messages = stream_unread_count > 0;
+    const subscriber_count = peer_data.get_subscriber_count(stream_id);
     const content = render_left_sidebar_stream_actions_popover({
         stream: {
             ...sub_store.get(stream_id),
@@ -116,6 +118,7 @@ function build_stream_popover(opts: {elt: HTMLElement; stream_id: number}): void
         },
         has_unread_messages,
         show_go_to_channel_feed,
+        subscriber_count,
     });
 
     popover_menus.toggle_popover_menu(elt, {
